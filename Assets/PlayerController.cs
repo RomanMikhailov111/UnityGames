@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public float speed;
+    public float rotateSpeed;
     public float horizontalInput;
     public float verticalInput;
     // Start is called before the first frame update
@@ -20,6 +21,6 @@ public class PlayerController : MonoBehaviour
         verticalInput = Input.GetAxis("Vertical") ;
       
         transform.Translate(Vector3.forward * Time.deltaTime * speed * horizontalInput);
-        transform.Translate(Vector3.right * Time.deltaTime * speed * verticalInput);
+        transform.Rotate(Vector3.up, Time.deltaTime * rotateSpeed * verticalInput);
     }
 }
