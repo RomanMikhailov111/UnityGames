@@ -178,7 +178,7 @@ GameObject:
   - component: {fileID: 3261544838673423932}
   m_Layer: 0
   m_Name: Dog_Doberman_01
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -270,6 +270,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 3
+  enemy: 1
+  spawnManager: {fileID: 0}
 --- !u!54 &-5945029888299561172
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -331,6 +333,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   offset: 30
+  enemy: 1
 --- !u!1 &106346
 GameObject:
   m_ObjectHideFlags: 0

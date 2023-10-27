@@ -5239,7 +5239,7 @@ GameObject:
   - component: {fileID: 6279849872521230337}
   m_Layer: 0
   m_Name: Dog_Beagle_01
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5331,6 +5331,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 3
+  enemy: 1
+  spawnManager: {fileID: 0}
 --- !u!54 &-4282144648817519155
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5377,8 +5379,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.117641024, y: 0.19221708, z: 0.23644051}
+  m_Center: {x: -0.0018794686, y: 0.1065108, z: 0.01896683}
 --- !u!114 &6279849872521230337
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5392,6 +5394,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   offset: 30
+  enemy: 1
 --- !u!1 &187592
 GameObject:
   m_ObjectHideFlags: 0

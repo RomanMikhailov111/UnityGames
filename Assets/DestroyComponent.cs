@@ -5,6 +5,7 @@ using UnityEngine;
 public class DestroyComponent : MonoBehaviour
 {
     public float offset;
+    public bool enemy;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,6 +22,19 @@ public class DestroyComponent : MonoBehaviour
         if (transform.position.z < -offset)
         {
             Destroy(gameObject);
+        }
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (!enemy)
+        {
+            return;
+        }
+
+        if ( other.gameObject.CompareTag("Fruct"))
+        {
+            Destroy(gameObject);
+            Destroy(other.gameObject);
         }
     }
 }

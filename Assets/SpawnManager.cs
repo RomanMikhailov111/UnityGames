@@ -12,6 +12,7 @@ public class SpawnManager : MonoBehaviour
     public float spawnRange;
     public float spawnPosZ;
     // Start is called before the first frame update
+    public bool gameOver;
     void Start()
     {
         InvokeRepeating("Spawn", repeatRate, startDelay);
@@ -25,8 +26,14 @@ public class SpawnManager : MonoBehaviour
 
     private void Spawn() 
     {
+        if (gameOver)
+        {
+            return;
+        }
+
         index = UnityEngine.Random.Range(0, spawnObjects.Length);
         Vector3 spawnPos = new Vector3(UnityEngine.Random.Range(-8, 8), 0, spawnPosZ);
         Instantiate(spawnObjects[index], spawnPos, spawnObjects[index].transform.rotation);
     }
+   
 }

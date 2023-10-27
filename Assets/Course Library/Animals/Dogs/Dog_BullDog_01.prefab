@@ -5941,7 +5941,7 @@ GameObject:
   - component: {fileID: 1494376591993056894}
   m_Layer: 0
   m_Name: Dog_BullDog_01
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6033,6 +6033,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 3
+  enemy: 1
+  spawnManager: {fileID: 0}
 --- !u!54 &-2177092211083818073
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -6094,6 +6096,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   offset: 30
+  enemy: 1
 --- !u!1 &199364
 GameObject:
   m_ObjectHideFlags: 0

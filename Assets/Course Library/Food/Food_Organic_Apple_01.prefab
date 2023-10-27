@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: -4522030113542286819}
   m_Layer: 0
   m_Name: Food_Organic_Apple_01
-  m_TagString: Untagged
+  m_TagString: Fruct
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -161,3 +161,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   offset: 30
+  enemy: 0

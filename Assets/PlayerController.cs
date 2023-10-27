@@ -11,9 +11,10 @@ public class PlayerController : MonoBehaviour
     public float offset;
     public GameObject[] projecttile;
     public int index;
+    public SpawnManager spawnManager;
     void Start()
     {
-        
+        spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
     }
 
     // Update is called once per frame
@@ -38,5 +39,16 @@ public class PlayerController : MonoBehaviour
             index = Random.Range(0, projecttile.Length);    
             Instantiate(projecttile[index], transform.position, projecttile[index].transform.rotation);
         }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Enemy"))
+        {
+            spawnManager.gameOver = true;
+            Destroy(gameObject);
+        }
+        
+        
     }
 }
