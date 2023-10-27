@@ -7,10 +7,14 @@ public class SpawnManager : MonoBehaviour
 {
     public GameObject[] spawnObjects;
     private int index;
+    public float startDelay;
+    public float repeatRate;
+    public float spawnRange;
+    public float spawnPosZ;
     // Start is called before the first frame update
     void Start()
     {
-        InvokeRepeating("Spawn", 1, 1);
+        InvokeRepeating("Spawn", repeatRate, startDelay);
     }
 
     // Update is called once per frame
@@ -22,6 +26,7 @@ public class SpawnManager : MonoBehaviour
     private void Spawn() 
     {
         index = UnityEngine.Random.Range(0, spawnObjects.Length);
-        Instantiate(spawnObjects[index], transform.position, spawnObjects[index].transform.rotation);
+        Vector3 spawnPos = new Vector3(UnityEngine.Random.Range(-8, 8), 0, spawnPosZ);
+        Instantiate(spawnObjects[index], spawnPos, spawnObjects[index].transform.rotation);
     }
 }
