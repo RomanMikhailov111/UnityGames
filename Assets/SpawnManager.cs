@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
+    public bool Vertical;
     public GameObject[] spawnObjects;
     private int index;
     public float startDelay;
@@ -32,7 +33,26 @@ public class SpawnManager : MonoBehaviour
         }
 
         index = UnityEngine.Random.Range(0, spawnObjects.Length);
-        Vector3 spawnPos = new Vector3(UnityEngine.Random.Range(-8, 8), 0, spawnPosZ);
+        Vector3 spawnPos;
+        Vector3 spawnPosX = new Vector3(UnityEngine.Random.Range(-8, 8), 0, spawnPosZ);
+        Vector3 spawnPosYsideRight = new Vector3(spawnPosZ, 0, UnityEngine.Random.Range(-8, 8));
+        Vector3 spawnPosYsideLeft= new Vector3(-spawnPosZ, 0, UnityEngine.Random.Range(-8, 8));
+        if (Vertical)
+        {
+            int random = UnityEngine.Random.Range(0, 2);
+            if (random == 0)
+            {
+                spawnPos = spawnPosYsideLeft;
+            }
+            else 
+            { 
+                spawnPos = spawnPosYsideRight;
+            }
+        } 
+        else
+        {
+            spawnPos = spawnPosX;
+        }
         Instantiate(spawnObjects[index], spawnPos, spawnObjects[index].transform.rotation);
     }
    

@@ -100,6 +100,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 3
+  slowSpeed: 0
+  enemy: 0
+  spawnManager: {fileID: 0}
 --- !u!65 &1923162309798321475
 BoxCollider:
   m_ObjectHideFlags: 0

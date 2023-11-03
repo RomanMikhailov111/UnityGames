@@ -33,7 +33,7 @@ public class DestroyComponent : MonoBehaviour
 
         if ( other.gameObject.CompareTag("Fruct"))
         {
-            Destroy(gameObject);
+            gameObject.GetComponent<MoveForward>().SlowDown();
             Destroy(other.gameObject);
         }
     }

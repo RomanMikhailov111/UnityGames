@@ -586,6 +586,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   offset: 15
+  offsetZmin: -0.5
+  offsetZmax: 15
   projecttile:
   - {fileID: 1180137445707430, guid: 84cd279dfc9ea0a4b8564030182915fa, type: 3}
   - {fileID: 157538, guid: 1f17d257118ec324ca772c5b2bacbb14, type: 3}
