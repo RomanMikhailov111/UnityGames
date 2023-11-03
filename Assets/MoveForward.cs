@@ -17,11 +17,10 @@ public class MoveForward : MonoBehaviour
     void Update()
     {
       
-        if (!enemy && spawnManager.gameOver)
+        if (enemy && spawnManager.gameOver)
         {
             return; 
         }
-        
         transform.Translate(Vector3.forward * Time.deltaTime * speed);
     }
 }
