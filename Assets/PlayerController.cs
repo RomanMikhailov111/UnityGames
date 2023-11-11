@@ -13,10 +13,12 @@ public class PlayerController : MonoBehaviour
     public float offsetZmax; 
     public GameObject[] projecttile;
     public int index;
-    public SpawnManager spawnManager;
+    public SpawnManager[] spawnManager;
     void Start()
     {
-        spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
+        /*        spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();*/
+        spawnManager = FindObjectsOfType<SpawnManager>();
+    
     }
 
     // Update is called once per frame
@@ -58,8 +60,12 @@ public class PlayerController : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Enemy"))
-        {
-            spawnManager.gameOver = true;
+        { 
+            for (int i = 0; i < spawnManager.Length; i++)
+            {
+                spawnManager[i].gameOver = true;
+            }
+    
             Destroy(gameObject);
         }
         

@@ -8,9 +8,11 @@ public class MoveForward : MonoBehaviour
     public float slowSpeed;
     public bool enemy;
     public SpawnManager spawnManager;
+    public Vector3 _direction = Vector3.forward;
     // Start is called before the first frame update
     void Start()
     {
+      
         slowSpeed = speed / 3;
         spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
     }
@@ -23,7 +25,7 @@ public class MoveForward : MonoBehaviour
         {
             return; 
         }
-        transform.Translate(Vector3.forward * Time.deltaTime * speed);
+        transform.Translate(_direction * Time.deltaTime * speed);
     }
     public void SlowDown ()
     {
@@ -32,5 +34,9 @@ public class MoveForward : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+    public void ChangeSide(Vector3 vector3) 
+    {
+        _direction = vector3;
     }
 }

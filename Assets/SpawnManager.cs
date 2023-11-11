@@ -37,15 +37,19 @@ public class SpawnManager : MonoBehaviour
         Vector3 spawnPosX = new Vector3(UnityEngine.Random.Range(-8, 8), 0, spawnPosZ);
         Vector3 spawnPosYsideRight = new Vector3(spawnPosZ, 0, UnityEngine.Random.Range(-8, 8));
         Vector3 spawnPosYsideLeft= new Vector3(-spawnPosZ, 0, UnityEngine.Random.Range(-8, 8));
+
+        Vector3 side = Vector3.zero;
         if (Vertical)
         {
             int random = UnityEngine.Random.Range(0, 2);
             if (random == 0)
             {
+                side = Vector3.left;
                 spawnPos = spawnPosYsideLeft;
             }
             else 
             { 
+                side = Vector3.right;
                 spawnPos = spawnPosYsideRight;
             }
         } 
@@ -53,7 +57,13 @@ public class SpawnManager : MonoBehaviour
         {
             spawnPos = spawnPosX;
         }
-        Instantiate(spawnObjects[index], spawnPos, spawnObjects[index].transform.rotation);
+       var spawnobject = Instantiate(spawnObjects[index], spawnPos, spawnObjects[index].transform.rotation);
+
+      var spawnobjectMoveForward =  spawnobject.GetComponent<MoveForward>();
+        if (side != Vector3.zero)
+        {
+            spawnobjectMoveForward.ChangeSide(side);
+        } 
     }
    
 }
