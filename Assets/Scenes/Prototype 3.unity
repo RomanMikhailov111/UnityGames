@@ -406,6 +406,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
+  leftBound: -15
 --- !u!114 &835818923
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -560,6 +561,7 @@ MonoBehaviour:
   gravityModifier: 1.5
   isGround: 0
   isGameOver: 0
+  playerAnimator: {fileID: 1349163427}
 --- !u!65 &1349163426
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -581,6 +583,11 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 3.376694, y: 3.423915, z: 1.0184592}
   m_Center: {x: -0.03408599, y: 1.2119579, z: 0.0092296}
+--- !u!95 &1349163427 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 9500000, guid: f8abbdd178867d2419ba9feb6ff2cba0, type: 3}
+  m_PrefabInstance: {fileID: 1349163420}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1643176108
 GameObject:
   m_ObjectHideFlags: 0
@@ -597,7 +604,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1643176109
 MonoBehaviour:
   m_ObjectHideFlags: 0
