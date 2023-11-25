@@ -451,7 +451,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100046, guid: f8abbdd178867d2419ba9feb6ff2cba0, type: 3}
       propertyPath: m_Name
-      value: SimpleFarmer_Man_01_Black
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 100046, guid: f8abbdd178867d2419ba9feb6ff2cba0, type: 3}
       propertyPath: m_IsActive
@@ -559,7 +559,7 @@ MonoBehaviour:
   jumpForce: 13
   gravityModifier: 1.5
   isGround: 0
-  gameOver: 0
+  isGameOver: 0
 --- !u!65 &1349163426
 BoxCollider:
   m_ObjectHideFlags: 0
