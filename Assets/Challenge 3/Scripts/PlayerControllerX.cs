@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerControllerX : MonoBehaviour
@@ -8,7 +9,9 @@ public class PlayerControllerX : MonoBehaviour
 
     public float floatForce;
     private float gravityModifier = 1.5f;
-    private Rigidbody playerRb;
+    public Rigidbody playerRb;
+    public float TopOffset = 15;
+  
 
     public ParticleSystem explosionParticle;
     public ParticleSystem fireworksParticle;
@@ -16,6 +19,7 @@ public class PlayerControllerX : MonoBehaviour
     private AudioSource playerAudio;
     public AudioClip moneySound;
     public AudioClip explodeSound;
+    public int Score;
 
 
     // Start is called before the first frame update
@@ -37,6 +41,11 @@ public class PlayerControllerX : MonoBehaviour
         {
             playerRb.AddForce(Vector3.up * floatForce);
         }
+        if (gameObject.transform.position.y > TopOffset)
+        {
+            playerRb.velocity = Vector3.zero;
+            gameObject.transform.position = new Vector3(transform.position.x,TopOffset,transform.position.z);
+        }
     }
 
     private void OnCollisionEnter(Collision other)
@@ -54,12 +63,23 @@ public class PlayerControllerX : MonoBehaviour
         // if player collides with money, fireworks
         else if (other.gameObject.CompareTag("Money"))
         {
+            UpdateSCORE(1);
             fireworksParticle.Play();
             playerAudio.PlayOneShot(moneySound, 1.0f);
             Destroy(other.gameObject);
 
         }
-
+        else if (other.gameObject.CompareTag("Ground"))
+        {
+            UpdateSCORE(-5);
+            playerRb.AddForce(Vector3.up * floatForce,ForceMode.Impulse);
+        }
+        
+    }
+   private void UpdateSCORE(int value) 
+    {
+        Score += value;
+        Debug.Log("Score: "+Score);
     }
 
 }
