@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     public float Speed = 5.0f;
     private Rigidbody playerRigidBody;
     private GameObject FocalPoint;
+    public bool isPowerUp;
     void Start()
     {
         playerRigidBody = GetComponent<Rigidbody>();
@@ -19,5 +20,13 @@ public class PlayerController : MonoBehaviour
     {
         float forwardInput = Input.GetAxis("Vertical");
         playerRigidBody.AddForce(FocalPoint.transform.forward * forwardInput * Speed);
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("PowerUp"))
+        {
+            isPowerUp = true;
+            Destroy(other.gameObject);
+        }
     }
 }
