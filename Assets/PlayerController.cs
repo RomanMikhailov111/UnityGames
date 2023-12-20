@@ -10,8 +10,10 @@ public class PlayerController : MonoBehaviour
     private GameObject FocalPoint;
     public bool isPowerUp;
     public float PowerUpForce = 15.0f;
+    private Vector3 StartPos;
     void Start()
     {
+        StartPos = transform.position;
         playerRigidBody = GetComponent<Rigidbody>();
         FocalPoint = GameObject.Find("FocalPoint");
     }
@@ -21,6 +23,12 @@ public class PlayerController : MonoBehaviour
     {
         float forwardInput = Input.GetAxis("Vertical");
         playerRigidBody.AddForce(FocalPoint.transform.forward * forwardInput * Speed);
+        
+        if (transform.position.y < -10f)
+        {
+            transform.position = StartPos;
+            playerRigidBody.velocity = Vector3.zero;
+        }
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -28,6 +36,7 @@ public class PlayerController : MonoBehaviour
         {
             isPowerUp = true;
             Destroy(other.gameObject);
+            StartCoroutine(PowerUp());
         }
     }
     private void OnCollisionEnter(Collision collision)
@@ -41,5 +50,10 @@ public class PlayerController : MonoBehaviour
                 EnemyRigidbody.AddForce(AwayFromPlayer * PowerUpForce, ForceMode.Impulse);
             }
         }
+    }
+    private IEnumerator PowerUp ()
+    {
+        yield return new WaitForSeconds(3f);
+        isPowerUp = false;
     }
 }
