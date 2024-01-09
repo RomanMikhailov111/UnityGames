@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        PowerUpIndicator.transform.position = new Vector3(transform.position.x,-0.5f,transform.position.z);
+        PowerUpIndicator.transform.position = new Vector3(transform.position.x,transform.position.y-0.5f,transform.position.z);
 
         float forwardInput = Input.GetAxis("Vertical");
         playerRigidBody.AddForce(FocalPoint.transform.forward * forwardInput * Speed);

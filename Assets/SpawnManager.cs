@@ -7,22 +7,35 @@ public class SpawnManager : MonoBehaviour
 {
     // Start is called before the first frame update
     public GameObject EnemyPrefab;
+    public GameObject PowerUpPrefab;
     public float SpawnRange = 9f;
     public float RepeatRate = 1f;
     public float StartDelay = 1f;
+    public int EnemyCount;
     void Start()
     {
-        InvokeRepeating("GenerateEnemy", StartDelay, RepeatRate);
+        //InvokeRepeating("GenerateEnemy", StartDelay, RepeatRate);
+        GenerateEnemy();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        int enemyCount = FindObjectsOfType<Enemy>().Length;
+        if (enemyCount == 0)
+        {
+            EnemyCount++; //EnemyCount = EnemyCount + 1;
+            GenerateEnemy();
+        }
     }
     private void GenerateEnemy ()
     {
-        Instantiate(EnemyPrefab, GenerateSpawnPosition(), Quaternion.identity);
+        for (int i = 0; i < EnemyCount; i++)
+        {
+            Instantiate(EnemyPrefab, GenerateSpawnPosition(), Quaternion.identity);
+            Instantiate(PowerUpPrefab, GenerateSpawnPosition(), PowerUpPrefab.transform.rotation);
+        }
+        
     }
     private Vector3 GenerateSpawnPosition () 
     {
