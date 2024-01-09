@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     public float Speed = 5.0f;
     private Rigidbody playerRigidBody;
     private GameObject FocalPoint;
+    public GameObject PowerUpIndicator;
     public bool isPowerUp;
     public float PowerUpForce = 15.0f;
     private Vector3 StartPos;
@@ -21,6 +22,8 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        PowerUpIndicator.transform.position = new Vector3(transform.position.x,-0.5f,transform.position.z);
+
         float forwardInput = Input.GetAxis("Vertical");
         playerRigidBody.AddForce(FocalPoint.transform.forward * forwardInput * Speed);
         
@@ -34,7 +37,6 @@ public class PlayerController : MonoBehaviour
     {
         if (other.CompareTag("PowerUp"))
         {
-            isPowerUp = true;
             Destroy(other.gameObject);
             StartCoroutine(PowerUp());
         }
@@ -53,7 +55,10 @@ public class PlayerController : MonoBehaviour
     }
     private IEnumerator PowerUp ()
     {
+        isPowerUp = true;
+        PowerUpIndicator.SetActive(true);
         yield return new WaitForSeconds(3f);
         isPowerUp = false;
+        PowerUpIndicator.SetActive(false);
     }
 }
