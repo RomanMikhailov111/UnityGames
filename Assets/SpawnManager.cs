@@ -5,8 +5,7 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    public GameObject EnemyPrefab;
+    public GameObject [] EnemyPrefabs;
     public GameObject PowerUpPrefab;
     public float SpawnRange = 9f;
     public float RepeatRate = 1f;
@@ -32,7 +31,8 @@ public class SpawnManager : MonoBehaviour
     {
         for (int i = 0; i < EnemyCount; i++)
         {
-            Instantiate(EnemyPrefab, GenerateSpawnPosition(), Quaternion.identity);
+            int EnemyNumbers = Random.Range(0, EnemyPrefabs.Length);
+            Instantiate(EnemyPrefabs[EnemyNumbers], GenerateSpawnPosition(), Quaternion.identity);
             Instantiate(PowerUpPrefab, GenerateSpawnPosition(), PowerUpPrefab.transform.rotation);
         }
         

@@ -697,7 +697,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5fa828732a264a46bd1f8337a12f131, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemyPrefab: {fileID: 5442799654476519585, guid: 0d166c902398cf94886e9f4b934dd727, type: 3}
+  EnemyPrefabs:
+  - {fileID: 5442799654476519585, guid: 0d166c902398cf94886e9f4b934dd727, type: 3}
+  - {fileID: 5442799654476519585, guid: 39cef96112eac9540be7ad3ed1b0cf2f, type: 3}
   PowerUpPrefab: {fileID: 1192983798335586, guid: 9e928de923724f54ea836e735efdd8b6, type: 3}
   SpawnRange: 9
   RepeatRate: 5
