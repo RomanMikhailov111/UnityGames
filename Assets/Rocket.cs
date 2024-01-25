@@ -39,7 +39,11 @@ public class Rocket : MonoBehaviour
         {
             if (collision.gameObject.CompareTag("Enemy"))
             {
-                //TODO:write Enemy collision logic
+               Rigidbody enemyrigidbody = collision.gameObject.GetComponent<Rigidbody>();
+                Vector3 Away = -collision.contacts[0].normal;
+                enemyrigidbody.AddForce(Away * RocketStrength, ForceMode.Impulse);
+
+                Destroy(gameObject);
             }
         }
     }

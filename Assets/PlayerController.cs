@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,9 +10,12 @@ public class PlayerController : MonoBehaviour
     private Rigidbody playerRigidBody;
     private GameObject FocalPoint;
     public GameObject PowerUpIndicator;
-    public bool isPowerUp;
+    public PowerUpType CurrentPowerUp = PowerUpType.None;
     public float PowerUpForce = 15.0f;
     private Vector3 StartPos;
+    public Rocket RocketPrefab;
+    private Coroutine PowerUpCoroutine;
+    private bool isPowerUp;
     void Start()
     {
         StartPos = transform.position;
@@ -32,20 +36,47 @@ public class PlayerController : MonoBehaviour
             transform.position = StartPos;
             playerRigidBody.velocity = Vector3.zero;
         }
+
+        if (CurrentPowerUp == PowerUpType.Rocket)
+        {
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                LaunchRockets();
+            }
+        }
     }
+
+    private void LaunchRockets()
+    {
+        Enemy[] enemies = FindObjectsOfType<Enemy>();
+
+        foreach (Enemy enemy in enemies)
+        {
+            Rocket TempRocket = Instantiate(RocketPrefab,transform.position+Vector3.up,Quaternion.identity);
+            TempRocket.Fire(enemy.transform);
+        }
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("PowerUp"))
         {
+            CurrentPowerUp = other.gameObject.GetComponent<PowerUp>().type;
             Destroy(other.gameObject);
-            StartCoroutine(PowerUp());
+
+            if (PowerUpCoroutine != null)
+            {
+                StopCoroutine(PowerUpCoroutine);
+            }
+
+            PowerUpCoroutine=StartCoroutine(PowerUp());
         }
     }
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            if (isPowerUp == true) 
+            if (CurrentPowerUp == PowerUpType.PushBack) 
             {
                 Rigidbody EnemyRigidbody = collision.gameObject.GetComponent<Rigidbody>();
                 Vector3 AwayFromPlayer = (collision.gameObject.transform.position - transform.position);
@@ -59,6 +90,7 @@ public class PlayerController : MonoBehaviour
         PowerUpIndicator.SetActive(true);
         yield return new WaitForSeconds(3f);
         isPowerUp = false;
+        CurrentPowerUp = PowerUpType.None;
         PowerUpIndicator.SetActive(false);
     }
 }
