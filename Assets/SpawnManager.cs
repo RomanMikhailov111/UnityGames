@@ -12,6 +12,8 @@ public class SpawnManager : MonoBehaviour
     public float RepeatRate = 1f;
     public float StartDelay = 1f;
     public int EnemyCount;
+    public int EnemyWin;
+    public GameObject WinWindow;
     void Start()
     {
         //InvokeRepeating("GenerateEnemy", StartDelay, RepeatRate);
@@ -21,9 +23,19 @@ public class SpawnManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (WinWindow.activeSelf)
+        {
+            return;
+        }
+
         int enemyCount = FindObjectsOfType<Enemy>().Length;
         if (enemyCount == 0)
         {
+            if (EnemyCount == EnemyWin)
+            {
+                WinWindow.SetActive(true);
+                return;
+            }
             EnemyCount++; //EnemyCount = EnemyCount + 1;
             GenerateEnemy();
         }
