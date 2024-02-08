@@ -55,6 +55,8 @@ public class PlayerController : MonoBehaviour
             Rocket TempRocket = Instantiate(RocketPrefab,transform.position+Vector3.up,Quaternion.identity);
             TempRocket.Fire(enemy.transform);
         }
+
+        PowerUpEnable(false);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -86,11 +88,17 @@ public class PlayerController : MonoBehaviour
     }
     private IEnumerator PowerUp ()
     {
-        isPowerUp = true;
-        PowerUpIndicator.SetActive(true);
+        PowerUpEnable(true);
         yield return new WaitForSeconds(3f);
-        isPowerUp = false;
-        CurrentPowerUp = PowerUpType.None;
-        PowerUpIndicator.SetActive(false);
+        PowerUpEnable(false);
+    }
+    private void PowerUpEnable(bool isEnable)
+    {
+        isPowerUp = isEnable;
+        PowerUpIndicator.SetActive(isEnable);
+        if (isEnable == false)
+        {
+            CurrentPowerUp = PowerUpType.None;
+        }
     }
 }

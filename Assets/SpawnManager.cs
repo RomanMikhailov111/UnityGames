@@ -7,6 +7,7 @@ public class SpawnManager : MonoBehaviour
 {
     public GameObject [] EnemyPrefabs;
     public GameObject PowerUpPrefab;
+    public GameObject PowerUpRockets;
     public float SpawnRange = 9f;
     public float RepeatRate = 1f;
     public float StartDelay = 1f;
@@ -33,7 +34,16 @@ public class SpawnManager : MonoBehaviour
         {
             int EnemyNumbers = Random.Range(0, EnemyPrefabs.Length);
             Instantiate(EnemyPrefabs[EnemyNumbers], GenerateSpawnPosition(), Quaternion.identity);
-            Instantiate(PowerUpPrefab, GenerateSpawnPosition(), PowerUpPrefab.transform.rotation);
+
+            if (EnemyCount%2 == 0) 
+            {
+                Instantiate(PowerUpPrefab, GenerateSpawnPosition(), PowerUpPrefab.transform.rotation);
+            }
+
+            if (EnemyCount%3 == 0)
+            {
+                Instantiate(PowerUpRockets, GenerateSpawnPosition(), PowerUpRockets.transform.rotation);
+            }
         }
         
     }
