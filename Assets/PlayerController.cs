@@ -28,8 +28,9 @@ public class PlayerController : MonoBehaviour
     {
         PowerUpIndicator.transform.position = new Vector3(transform.position.x,transform.position.y-0.5f,transform.position.z);
 
-        float forwardInput = Input.GetAxis("Vertical");
-        playerRigidBody.AddForce(FocalPoint.transform.forward * forwardInput * Speed);
+        float HorizontalInput = Input.GetAxis("Horizontal");
+        float VerticalInput = Input.GetAxis("Vertical");
+        playerRigidBody.AddForce(new Vector3(HorizontalInput,0,VerticalInput)* Speed);
         
         if (transform.position.y < -10f)
         {
