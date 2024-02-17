@@ -13,6 +13,8 @@ public class Target : MonoBehaviour
     private Rigidbody TargetRigidBody;
     private GameManager gameManager;
 
+    public ParticleSystem ExplosionParticle;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,7 +31,8 @@ public class Target : MonoBehaviour
 
     private void OnMouseDown()
     {
-        gameManager.AddScore(ScoreValue);
+        Instantiate(ExplosionParticle, transform.position, ExplosionParticle.transform.rotation);
+        gameManager.UpdateScore(ScoreValue);
         Destroy(gameObject);
     }
 

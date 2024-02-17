@@ -1,21 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
     private float SpawnRate = 1.0f;
     public int Score;
-    public GameObject[] TargetsPrefabs; 
-    // Start is called before the first frame update
+    public GameObject[] TargetsPrefabs;
+
+
+    public TextMeshProUGUI ScoreText;
     void Start()
     {
+        UpdateScore(0);
         StartCoroutine(SpawnTarget());
     }
 
-    public void AddScore(int score)
+    public void UpdateScore(int score)
     {
         Score += score;
+        ScoreText.text = Score.ToString();
         Debug.Log (Score.ToString ());
     }
 
