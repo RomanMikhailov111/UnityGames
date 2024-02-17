@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Target : MonoBehaviour
@@ -24,6 +25,8 @@ public class Target : MonoBehaviour
         TargetRigidBody.AddTorque(GenerateTorqueValue(), GenerateTorqueValue(), GenerateTorqueValue(), ForceMode.Impulse);
         transform.position = new Vector3(Random.Range(-4, 4), -6);
     }
+
+   
     private float GenerateTorqueValue ()
     {
         return Random.Range(StartTorqueMin, StartTorqueMax);
@@ -46,6 +49,9 @@ public class Target : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (gameManager.isGameOver)
+        {
+           Destroy(gameObject);
+        }
     }
 }

@@ -7,8 +7,11 @@ public class GameManager : MonoBehaviour
 {
     private float SpawnRate = 1.0f;
     public int Score;
+    public bool isGameOver;
     public GameObject[] TargetsPrefabs;
 
+
+    public GameObject GameOverPanel;
 
     public TextMeshProUGUI ScoreText;
     void Start()
@@ -22,11 +25,17 @@ public class GameManager : MonoBehaviour
         Score += score;
         ScoreText.text = Score.ToString();
         Debug.Log (Score.ToString ());
+
+        if (Score < 0)
+        {
+            isGameOver = true;
+            GameOverPanel.SetActive(true);
+        }
     }
 
     private IEnumerator SpawnTarget ()
     {
-        while (true)
+        while (!isGameOver)
         {
             yield return new WaitForSeconds(SpawnRate);
             int Index = Random.Range(0, TargetsPrefabs.Length);
