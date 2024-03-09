@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -14,10 +15,11 @@ public enum GameType
 }
 public class GameManager : MonoBehaviour
 {
-    public float EasySpawnRate = 1.5f;
-    public float MediumSpawnRate = 1.0f;
-    public float HardSpawnRate = 0.5f;
-    public int Score;
+    public GameSetting EasySetting;
+    public GameSetting MediumSetting;
+    public GameSetting HardSetting;
+
+    public int GameScore;
     public bool isGameOver;
     public GameObject[] TargetsPrefabs;
 
@@ -26,11 +28,15 @@ public class GameManager : MonoBehaviour
     public Button MediumStartButton;
     public Button HardStartButton;
 
-
     public GameObject GameOverPanel;
     public GameObject StartGamePanel;
 
     public TextMeshProUGUI ScoreText;
+
+    public GameObject HealthPrefab;
+    public GameObject HealthParent;
+    public GameObject[] GameHealth;
+    
     void Start()
     {
         RestartButton.onClick.AddListener(RestartGame);
@@ -44,22 +50,30 @@ public class GameManager : MonoBehaviour
 
     private void StartGame(GameType type)
     {
-        float TimeToSpawn = 0;
+        GameSetting gameSetting = null;
 
         switch (type)
         {
             case GameType.Easy:
-                TimeToSpawn = EasySpawnRate;
+                gameSetting = EasySetting;
                 break;
             case GameType.Medium:
-                TimeToSpawn = MediumSpawnRate;
+                gameSetting = MediumSetting;
                 break;
             case GameType.Hard:
-                TimeToSpawn = HardSpawnRate;
+                gameSetting = HardSetting;
                 break;
         }
 
-        StartCoroutine(SpawnTarget(TimeToSpawn));
+        GameHealth =  new GameObject[gameSetting.Health];
+
+        for (int i = 0; i < gameSetting.Health; i++)
+        {
+            var Health = Instantiate(HealthPrefab, HealthParent.transform);
+            GameHealth[i] = Health;
+        }
+
+        StartCoroutine(SpawnTarget(gameSetting.SpawnRate));
         StartGamePanel.SetActive(false);
     }
     private void HardStartGame()
@@ -87,13 +101,34 @@ public class GameManager : MonoBehaviour
 
     public void UpdateScore(int score)
     {
-        Score += score;
-        ScoreText.text = Score.ToString();
-        Debug.Log (Score.ToString ());
+        GameScore += score;
+        ScoreText.text = GameScore.ToString();
+        Debug.Log (GameScore.ToString ());
 
-        if (Score < 0)
+        if (score < 0)
         {
-            isGameOver = true;
+            bool isLifeDisable = false;
+            for (int i = 0; i < GameHealth.Length; i++)
+            {
+                if (GameHealth[i].activeSelf)
+                {
+                    GameHealth[i].SetActive(false);
+                    isLifeDisable = true;
+                    break;
+                }
+            }
+            
+            if (isLifeDisable == false) 
+            {
+                isGameOver = true;
+                GameOverPanel.SetActive(true);
+                return;
+            }
+        }
+
+        if (GameScore < 0)
+        {
+                isGameOver = true;
             GameOverPanel.SetActive(true);
         }
     }
@@ -103,7 +138,7 @@ public class GameManager : MonoBehaviour
         while (!isGameOver)
         {
             yield return new WaitForSeconds(TimeSpawnRate);
-            int Index = Random.Range(0, TargetsPrefabs.Length);
+            int Index = UnityEngine.Random.Range(0, TargetsPrefabs.Length);
             Instantiate(TargetsPrefabs[Index]);
         }
     }
@@ -117,4 +152,11 @@ public class GameManager : MonoBehaviour
     {
         
     }
+}
+
+[Serializable]
+public class GameSetting
+{
+    public float SpawnRate;
+    public int Health;
 }
