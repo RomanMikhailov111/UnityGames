@@ -36,7 +36,11 @@ public class GameManager : MonoBehaviour
     public GameObject HealthPrefab;
     public GameObject HealthParent;
     public GameObject[] GameHealth;
-    
+
+    public float Timer;
+    public bool isTimerRunning;
+    public TextMeshProUGUI TimerText;
+
     void Start()
     {
         RestartButton.onClick.AddListener(RestartGame);
@@ -46,8 +50,30 @@ public class GameManager : MonoBehaviour
         HardStartButton.onClick.AddListener(HardStartGame);
 
         UpdateScore(0);
-    }   
+    }
+    void Update()
+    {
+        if (isTimerRunning == true)
+        {
+            Timer -= Time.deltaTime;
 
+            if (Timer <= 0)
+            {
+                Timer = 0;
+                isTimerRunning = false;
+                GameOver();
+            }
+            UpdateTimerDisplay();
+        }
+    }
+
+    void UpdateTimerDisplay()
+    {
+        int minutes = Mathf.FloorToInt(Timer / 60f);
+        int seconds = Mathf.FloorToInt(Timer % 60f);
+
+        TimerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+    }
     private void StartGame(GameType type)
     {
         GameSetting gameSetting = null;
@@ -64,6 +90,9 @@ public class GameManager : MonoBehaviour
                 gameSetting = HardSetting;
                 break;
         }
+
+        Timer = gameSetting.GameTime;
+        isTimerRunning = true;
 
         GameHealth =  new GameObject[gameSetting.Health];
 
@@ -121,17 +150,21 @@ public class GameManager : MonoBehaviour
             
             if (isLastLifeDisable == true) 
             {
-                isGameOver = true;
-                GameOverPanel.SetActive(true);
+                GameOver();
                 return;
             }
         }
 
         if (GameScore < 0)
         {
-                isGameOver = true;
-            GameOverPanel.SetActive(true);
+            GameOver();
         }
+    }
+
+    private void GameOver()
+    {
+        isGameOver = true;
+        GameOverPanel.SetActive(true);
     }
 
     private IEnumerator SpawnTarget (float TimeSpawnRate)
@@ -143,16 +176,6 @@ public class GameManager : MonoBehaviour
             Instantiate(TargetsPrefabs[Index]);
         }
     }
-
-
-
-
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
 
 [Serializable]
@@ -160,4 +183,5 @@ public class GameSetting
 {
     public float SpawnRate;
     public int Health;
+    public int GameTime;
 }
