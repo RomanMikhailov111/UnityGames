@@ -107,18 +107,19 @@ public class GameManager : MonoBehaviour
 
         if (score < 0)
         {
-            bool isLifeDisable = false;
+            bool isLastLifeDisable = false;
+            int LastLife = GameHealth.Length - 1;
             for (int i = 0; i < GameHealth.Length; i++)
             {
                 if (GameHealth[i].activeSelf)
                 {
                     GameHealth[i].SetActive(false);
-                    isLifeDisable = true;
+                    isLastLifeDisable = i == LastLife;
                     break;
                 }
             }
             
-            if (isLifeDisable == false) 
+            if (isLastLifeDisable == true) 
             {
                 isGameOver = true;
                 GameOverPanel.SetActive(true);
